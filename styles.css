@@ -12,6 +12,7 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  transform: scale(0.75);
 }
 
 h1 {
