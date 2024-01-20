@@ -1,5 +1,6 @@
 var input = document.getElementById("inputBox");
 var button = document.getElementById("runButton");
+var output = document.getElementById("outputBox");
 
 function fetchSong() {
   console.log("finding song...");
@@ -7,7 +8,7 @@ function fetchSong() {
   const query = input.value;
   console.log("request: ", query || "no query...");
 
-  fetch(`https://dj-llm.vercel.app/v1/dj`, {
+  return fetch(`http://localhost:8095/v1/dj`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -18,12 +19,36 @@ function fetchSong() {
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      return response.json(); // Parse the JSON of the response
+      return response.json();
     })
     .then((data) => {
-      console.log("response: ", data); // Handle the data from the response
+      return data;
     })
     .catch((error) => {
       console.error("Fetch error:", error);
     });
 }
+
+async function run() {
+  output.innerHTML = `<span style="width:100%;text-align:center;">thinking...<span>`;
+  console.log("running...");
+  const { song, description } = await fetchSong();
+  console.log("song: ", song);
+  output.innerHTML = `
+    <a
+      href="https://open.spotify.com/search/${encodeURIComponent(song)}}"
+      target="_blank"
+    >
+      <h4>
+        ${song}
+      </h4>
+    </a>
+    <p>
+      ${description}
+    </p>
+  `;
+}
+
+input.addEventListener("keypress", function (e) {
+  if (e.key === "Enter") run();
+});
