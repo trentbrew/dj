@@ -30,7 +30,7 @@ function fetchSong() {
 }
 
 async function run() {
-  output.innerHTML = `<span style="width:100%;text-align:center;">thinking...<span>`;
+  output.innerHTML = `<span style="width:100%;text-align:center;">...<span>`;
   console.log("running...");
   const { song, description } = await fetchSong();
   console.log("song: ", song);
