@@ -8,7 +8,7 @@ function fetchSong() {
   const query = input.value;
   console.log("request: ", query || "no query...");
 
-  return fetch(`http://localhost:8095/v1/dj`, {
+  return fetch(`https://dj-llm.vercel.app/v1/dj`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
