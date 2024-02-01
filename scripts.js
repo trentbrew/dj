@@ -33,20 +33,23 @@ async function run() {
   output.innerHTML = `<span style="width:100%;text-align:center;">searching...<span>`;
   console.log("running...");
   const { song, description } = await fetchSong();
-  console.log("song: ", song);
-  output.innerHTML = `
-    <a
-      href="https://open.spotify.com/search/${encodeURIComponent(song)}}"
-      target="_blank"
-    >
-      <h4>
-        ${song}
-      </h4>
-    </a>
-    <p>
-      ${description}
-    </p>
-  `;
+  if (song) {
+    output.innerHTML = `
+      <a
+        href="https://open.spotify.com/search/${encodeURIComponent(song)}}"
+        target="_blank"
+      >
+        <h4>
+          ${song}
+        </h4>
+      </a>
+      <p>
+        ${description}
+      </p>
+    `;
+  } else {
+    output.innerHTML = `<p>Something went wrong... :(</p>`;
+  }
 }
 
 input.addEventListener("keypress", function (e) {
